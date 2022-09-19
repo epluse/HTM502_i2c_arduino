@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map For HTM502_i2c
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+htm502I2c	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+singleShotTempHum				KEYWORD2
+singleShotTempHumClockStretchingDisabaled	KEYWORD2
+getPeriodicMeasurementTempHum			KEYWORD2
+startPeriodicMeasurement			KEYWORD2
+endPeriodicMeasurement				KEYWORD2
+readIdentification				KEYWORD2
+readStatusRegister				KEYWORD2
+clearStatusregister1				KEYWORD2
+reset						KEYWORD2
+getErrorString					KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+CRC8_ONEWIRE_POLY	LITERAL1
+CRC8_ONEWIRE_START	LITERAL1
