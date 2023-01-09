@@ -36,20 +36,6 @@ void setup()
   Serial.begin(9600); //Start Serial communication
   Wire.begin();       //initialize I2C peripheral (SDA..A4, SCL..A5)
   delay(1000);
-  errorcode = htm.changePeriodicMeasurementTime(5000); // in ms
-  if (errorcode != 0)
-  {
-    htm.getErrorString(errorcode, errorString);
-    Serial.println(errorString);
-  }
-  else
-  {
-    Serial.println("Changing the periodic measurement time was successful");
-  }
-  htm.readPeriodicMeasurementTime(measurementTime);
-  Serial.print("periodic measurement time is: ");
-  Serial.print(measurementTime);
-  Serial.println(" s");
   errorcode = htm.readIdentification(identification);
   if (errorcode != 0)
   {
