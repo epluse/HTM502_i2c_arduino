@@ -47,9 +47,8 @@ htm502I2c::htm502I2c(unsigned char i2cAdress)
 
 uint8_t htm502I2c::singleShotTempHum(float &temperature, float &humidity)
 {
-  unsigned char i2cResponse[6];
-  unsigned char Command[] = {0x2C, 0x1B};
-  wireWrite(Command, 1, false);
+  unsigned char i2cResponse[6] = {};
+  unsigned char Command[] = {(HTM502_COMMAND_READ_SINGLE_SHOT >> 8), (HTM502_COMMAND_READ_SINGLE_SHOT & 0xFF)};  wireWrite(Command, 1, false);
   delay(2);
   wireRead(i2cResponse, 6);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1) && i2cResponse[5] == calcCrc8(i2cResponse, 3, 4))
@@ -66,8 +65,8 @@ uint8_t htm502I2c::singleShotTempHum(float &temperature, float &humidity)
 
 uint8_t htm502I2c::singleShotTempHumClockStretchingDisabaled(float &temperature, float &humidity)
 {
-  unsigned char i2cResponse[6];
-  unsigned char Command[] = {0x24, 0x1D};
+  unsigned char i2cResponse[6] = {};
+  unsigned char Command[] = {(HTM502_COMMAND_READ_SINGLE_SHOT_DIS >> 8), (HTM502_COMMAND_READ_SINGLE_SHOT_DIS & 0xFF)};
   wireWrite(Command, 1, false);
   delay(2);
   wireRead(i2cResponse, 6);
@@ -85,8 +84,8 @@ uint8_t htm502I2c::singleShotTempHumClockStretchingDisabaled(float &temperature,
 
 uint8_t htm502I2c::getPeriodicMeasurementTempHum(float &temperature, float &humidity)
 {
-  unsigned char i2cResponse[6];
-  unsigned char Command[] = {0xE0, 0x00};
+  unsigned char i2cResponse[6] = {};
+  unsigned char Command[] = {(HTM502_COMMAND_READ_PERIODIC_MEASUREMENT >> 8), (HTM502_COMMAND_READ_PERIODIC_MEASUREMENT & 0xFF)};
   wireWrite(Command, 1, false);
   wireRead(i2cResponse, 6);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1) && i2cResponse[5] == calcCrc8(i2cResponse, 3, 4))
@@ -103,20 +102,20 @@ uint8_t htm502I2c::getPeriodicMeasurementTempHum(float &temperature, float &humi
 
 void htm502I2c::startPeriodicMeasurement(void)
 {
-  unsigned char Command[] = {0x20, 0x1E};
+  unsigned char Command[] = {(HTM502_COMMAND_START_PERIODIC_MEASUREMENT >> 8), (HTM502_COMMAND_START_PERIODIC_MEASUREMENT & 0xFF)};
   wireWrite(Command, 1, true);
 }
 
 void htm502I2c::endPeriodicMeasurement(void)
 {
-  unsigned char Command[] = {0x30, 0x93};
+  unsigned char Command[] = {(HTM502_COMMAND_END_PERIODIC_MEASUREMENT >> 8), (HTM502_COMMAND_END_PERIODIC_MEASUREMENT & 0xFF)};
   wireWrite(Command, 1, true);
 }
 
 uint8_t htm502I2c::readIdentification(unsigned char identification[])
 {
-  unsigned char i2cResponse[9];
-  unsigned char Command[] = {0x70, 0x29};
+  unsigned char i2cResponse[9] = {};
+  unsigned char Command[] = {(HTM502_COMMAND_READ_IDENTIFICATION >> 8), (HTM502_COMMAND_READ_IDENTIFICATION & 0xFF)};
   wireWrite(Command, 1, false);
   wireRead(i2cResponse, 9);
   if (i2cResponse[8] == calcCrc8(i2cResponse, 0, 7))
@@ -133,17 +132,17 @@ uint8_t htm502I2c::readIdentification(unsigned char identification[])
   }
 }
 
-uint8_t htm502I2c::readStatusRegister(unsigned char statusRegister1[])
+uint8_t htm502I2c::readStatusRegister(unsigned char statusRegister[])
 {
-  unsigned char i2cResponse[3];
-  unsigned char Command[] = {0xF3, 0x52};
+  unsigned char i2cResponse[3] = {};
+  unsigned char Command[] = {(HTM502_COMMAND_READ_REGISTER >> 8), (HTM502_COMMAND_READ_REGISTER & 0xFF)};
   wireWrite(Command, 1, false);
   wireRead(i2cResponse, 3);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1))
   {
     for (int i = 0; i < 2; i++)
     {
-      statusRegister1[i] = i2cResponse[i];
+      statusRegister[i] = i2cResponse[i];
     }
     return 0;
   }
@@ -153,15 +152,15 @@ uint8_t htm502I2c::readStatusRegister(unsigned char statusRegister1[])
   }
 }
 
-void htm502I2c::clearStatusregister1(void)
+void htm502I2c::clearStatusregister(void)
 {
-  unsigned char Command[] = {0x30, 0x41};
+  unsigned char Command[] = {(HTM502_COMMAND_CLEAR_REGISTER >> 8), (HTM502_COMMAND_CLEAR_REGISTER & 0xFF)};
   wireWrite(Command, 1, true);
 }
 
 void htm502I2c::reset(void)
 {
-  unsigned char Command[] = {0x30, 0xA2};
+  unsigned char Command[] = {(HTM502_COMMAND_SOFT_RESET >> 8), (HTM502_COMMAND_SOFT_RESET & 0xFF)};
   wireWrite(Command, 1, true);
 }
 

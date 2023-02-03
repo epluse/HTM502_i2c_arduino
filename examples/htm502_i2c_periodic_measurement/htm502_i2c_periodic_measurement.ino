@@ -1,7 +1,7 @@
 /*
 Example script reading measurement values from the HTM502 sensor via I2C interface.
 
-Copyright 2022 E+E Elektronik Ges.m.b.H.
+Copyright 2023 E+E Elektronik Ges.m.b.H.
 
 Disclaimer:
 This application example is non-binding and does not claim to be complete with regard
@@ -22,7 +22,7 @@ We assume no liability for the information contained in this document.
 #include <htm502I2c.h>
 #include <Wire.h>
 htm502I2c htm(0x40);
-#define REQUEST_INTERVAL_MS 100 //Time interval between measurements in ms
+#define REQUEST_INTERVAL_MS 2000 //Time interval between measurements in ms
 #define CSV_DELIMITER ','
 
 bool measurementReady;

@@ -30,8 +30,17 @@ We assume no liability for the information contained in this document.
 
 // Defines
 //-----------------------------------------------------------------------------
-#define CRC8_ONEWIRE_POLY 0x31
-#define CRC8_ONEWIRE_START 0xFF
+#define CRC8_ONEWIRE_POLY                           0x31
+#define CRC8_ONEWIRE_START                          0xFF
+#define HTM502_COMMAND_READ_SINGLE_SHOT             0x2C1B
+#define HTM502_COMMAND_READ_SINGLE_SHOT_DIS         0x241D //DIS = clock stretching disabled
+#define HTM502_COMMAND_READ_PERIODIC_MEASUREMENT    0xE000
+#define HTM502_COMMAND_CLEAR_REGISTER               0x3041
+#define HTM502_COMMAND_READ_REGISTER                0xF32D
+#define HTM502_COMMAND_START_PERIODIC_MEASUREMENT   0x201E
+#define HTM502_COMMAND_END_PERIODIC_MEASUREMENT     0x3093
+#define HTM502_COMMAND_SOFT_RESET                   0x30A2
+#define HTM502_COMMAND_READ_IDENTIFICATION          0x7029
 
 
 // declaration of functions
@@ -48,8 +57,8 @@ public:
     void startPeriodicMeasurement(void);
     void endPeriodicMeasurement(void);
     uint8_t readIdentification(unsigned char identification[]);
-    uint8_t readStatusRegister(unsigned char statusRegister1[]);
-    void clearStatusregister1(void);
+    uint8_t readStatusRegister(unsigned char statusRegister[]);
+    void clearStatusregister(void);
     void reset(void);
     unsigned char address = 0x40;
     void wireWrite(unsigned char buf[], int to, bool stopmessage);
