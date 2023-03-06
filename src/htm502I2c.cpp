@@ -53,7 +53,15 @@ uint8_t htm502I2c::singleShotTempHum(float &temperature, float &humidity)
   wireRead(i2cResponse, 6);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1) && i2cResponse[5] == calcCrc8(i2cResponse, 3, 4))
   {
-    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]) / 100;
+    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]);
+    if (temperature > 55536)
+    {
+      temperature = (temperature - 65536) / 100; 
+    }
+    else 
+    {
+      temperature = temperature / 100;
+    }
     humidity = ((float)(i2cResponse[3]) * 256 + i2cResponse[4]) / 100;
     return 0;
   }
@@ -72,7 +80,15 @@ uint8_t htm502I2c::singleShotTempHumClockStretchingDisabaled(float &temperature,
   wireRead(i2cResponse, 6);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1) && i2cResponse[5] == calcCrc8(i2cResponse, 3, 4))
   {
-    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]) / 100;
+    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]);
+    if (temperature > 55536)
+    {
+      temperature = (temperature - 65536) / 100; 
+    }
+    else 
+    {
+      temperature = temperature / 100;
+    }
     humidity = ((float)(i2cResponse[3]) * 256 + i2cResponse[4]) / 100;
     return 0;
   }
@@ -90,7 +106,15 @@ uint8_t htm502I2c::getPeriodicMeasurementTempHum(float &temperature, float &humi
   wireRead(i2cResponse, 6);
   if (i2cResponse[2] == calcCrc8(i2cResponse, 0, 1) && i2cResponse[5] == calcCrc8(i2cResponse, 3, 4))
   {
-    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]) / 100;
+    temperature = ((float)(i2cResponse[0]) * 256 + i2cResponse[1]);
+    if (temperature > 55536)
+    {
+      temperature = (temperature - 65536) / 100; 
+    }
+    else 
+    {
+      temperature = temperature / 100;
+    }
     humidity = ((float)(i2cResponse[3]) * 256 + i2cResponse[4]) / 100;
     return 0;
   }
